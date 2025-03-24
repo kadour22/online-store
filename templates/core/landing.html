@@ -1,0 +1,84 @@
+{% extends "core/base.html"  %}
+{% load static %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50">
+    <!-- Header Navigation -->
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
+        <div class="flex items-center justify-between">
+
+            <div class="flex items-center space-x-4">
+                
+                <button class="p-2">
+                    <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Promotional Banner -->
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
+        <img src="{{ MEDIA_URL }}jbl.png" alt="Promotional Banner" style="height: 400px; width: 100%;" class="rounded-lg shadow-lg" />
+        <!-- <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-pink-100 to-purple-100">
+            <div class="absolute -left-4 top-0">
+                <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=200&h=200&fit=crop" 
+                     alt="Model" class="w-32 h-32 object-cover rounded-full transform -rotate-12">
+            </div>
+            <div class="absolute -right-4 top-0">
+                <img src="https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=200&h=200&fit=crop" 
+                     alt="Model" class="w-32 h-32 object-cover rounded-full transform rotate-12">
+            </div>
+            <div class="relative px-8 py-12 text-center">
+                <h2 class="text-2xl font-bold tracking-wider text-gray-900 mb-2">DISCOUNTS UP TO 50% FROM</h2>
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">ANSWEAR CLUB ORIGINAL GOODS</h3>
+                <p class="text-sm text-gray-600 mb-4">PROMOCODE: 10010</p>
+                <button class="bg-black text-white px-6 py-2 rounded-full text-sm font-medium hover:bg-gray-900 transition">
+                    Shop now
+                </button>
+            </div>
+        </div> -->
+    </div>
+
+    <!-- New Arrivals Section -->
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-8">
+        <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center space-x-6">
+                <h2 class="text-lg font-semibold text-gray-900">New arrivals</h2>
+                <span class="text-sm text-gray-500">View more</span>
+            </div>
+            <div class="flex items-center">
+                <span class="text-sm text-gray-500">🔥 Bestsellers</span>
+            </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for product in products %}
+            <div class="group">
+                <div class="relative aspect-[3/4] overflow-hidden rounded-lg bg-white">
+                    <img src="{{ product.image.url }}" 
+                         alt="{{ product.name }}" 
+                         class="h-full w-full object-cover object-center">
+                    <button class="absolute top-4 right-4 p-2 rounded-full bg-white shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
+                        <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="mt-4">
+                    <h3 class="text-sm font-medium text-gray-900">{{ product.name }}</h3>
+                    <div class="flex items-center justify-between mt-1">
+                        <p class="text-lg font-semibold text-gray-900">${{ product.price }}</p>
+                        {% if product.original_price %}
+                        <p class="text-sm text-gray-500 line-through">${{ product.original_price }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

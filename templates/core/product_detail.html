@@ -1,15 +1,76 @@
 {% extends "core/base.html" %}
 
 {% block content %}
-  <h1 class="text-3xl font-bold underline">
-    {{ product.name }}
-  </h1>
-  <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-1/4">
-  <p class="text-gray-600">
-    {{ product.about }}
-  </p>
-  <p class="text-gray-600">
-    Price: ${{ product.price }}
-  </p>
-  <a href="{% url 'add-to-cart' product.id %}" class="bg-yellow-100 w-150 h-50">Back to Products</a>
+<div class="bg-gradient-to-br from-pink-50 to-purple-50">
+  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
+    <div class="lg:grid lg:grid-cols-2 lg:items-start lg:gap-x-12">
+      <!-- Image gallery -->
+      <div class="flex flex-col">
+        <div class="relative aspect-[4/3] overflow-hidden rounded-2xl bg-white">
+          <img src="{{ product.image.url }}" 
+               alt="{{ product.name }}" 
+               class="h-full w-full object-cover object-center">
+          <button class="absolute top-4 right-4 p-2 rounded-full bg-white shadow-md opacity-0 group-hover:opacity-100 transition-opacity">
+            <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Product info -->
+      <div class="mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0">
+        <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{ product.name }}</h1>
+        
+        <!-- Price -->
+        <div class="mt-3 flex items-center">
+          <p class="text-3xl font-bold text-gray-900">${{ product.price }}</p>
+          {% if product.original_price %}
+          <p class="ml-3 text-lg text-gray-500 line-through">${{ product.original_price }}</p>
+          {% endif %}
+        </div>
+
+        <!-- Rating -->
+        <div class="mt-4 flex items-center">
+          <div class="flex items-center">
+            {% for i in "12345"|make_list %}
+            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+            </svg>
+            {% endfor %}
+          </div>
+          <p class="ml-2 text-sm text-gray-500">(128 reviews)</p>
+        </div>
+
+        <!-- Description -->
+        <div class="mt-6">
+          <h3 class="sr-only">Description</h3>
+          <div class="space-y-6 text-base text-gray-700">{{ product.about }}</div>
+        </div>
+
+        <!-- Add to cart -->
+        <div class="mt-10 flex flex-col space-y-4">
+          <a href="{% url 'add-to-cart' product.id %}" 
+             class="flex w-full items-center justify-center rounded-full bg-purple-600 px-8 py-3 text-base font-medium text-white hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2">
+            Add to Cart
+          </a>
+          <a href="{% url 'product_list' %}" 
+             class="flex w-full items-center justify-center rounded-full bg-white px-8 py-3 text-base font-medium text-gray-900 ring-1 ring-gray-300 hover:bg-gray-50">
+            ← Back to Products
+          </a>
+        </div>
+
+        <!-- Additional Info -->
+        <div class="mt-8 border-t border-gray-200 pt-8">
+          <h3 class="text-sm font-medium text-gray-900">Shipping Information</h3>
+          <div class="mt-4 space-y-3">
+            <p class="text-sm text-gray-600">✈️ Free shipping on orders over $100</p>
+            <p class="text-sm text-gray-600">🔄 30-day return policy</p>
+            <p class="text-sm text-gray-600">🛡️ 2-year warranty</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
